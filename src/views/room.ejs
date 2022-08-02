@@ -1,0 +1,21 @@
+<%- include('./partials/header'); -%>
+    <link rel="stylesheet" href="/styles/room.css" type="text/css"/>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+</head>
+<body class="container">
+
+    <div class="movie-container">
+
+        <p class="room-code"><%= roomId %></p>
+
+        <video class="video" src="https://stream.mux.com/jO8IMFc4Q2y7l01OOTMhUqog7RhaUD02H6/high.mp4?token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InQ5UHZucm9ZY0hQNjhYSmlRQnRHTEVVSkVSSXJ0UXhKIn0.eyJleHAiOjE2NTk0NDEwNjEsImF1ZCI6InYiLCJzdWIiOiJqTzhJTUZjNFEyeTdsMDFPT1RNaFVxb2c3UmhhVUQwMkg2In0.lwNNRr7VYCqUTpKWFAX4zudMgQzkh2C1IuqqdXzC8yHi3sHtJmCFjdR9K63rOf-7qEKt3nW1Av8aqwswpC14aDYZaRj_rDv7jcDjiyGFTCaC7IK6rXx5X0ijtgsz5ipISnvorKrThy-Guq6h3qU_SKlw350lL8-8tS8tdMUfo3fKxKu-sPGAqhFR5rC4ehRe5e4DM-MMHXinXOYyXlO_17srmhieUTpJGaN5-TioK7NOb2gWWs3c2h_IVJwThiuiZAi8fhwLsXBcFBrwECp8v0lFGzjKekwm9P-5sspcKgllcX1gyMvmR_-LXNEEUH4xJueZ3Ads1ZYkF8IvPUgonA" controls></video>
+
+        <form class="movie-url-form">
+            <input class="movie-url" autocomplete="off" placeholder="URL Video in formato .MP4" type="text" name="movie-url"/>
+            <button class="movie-btn" type="submit">Invio</button>
+        </form>
+    </div>
+
+    <script src="/scripts/room.js"></script>
+
+<%- include('./partials/footer'); -%>

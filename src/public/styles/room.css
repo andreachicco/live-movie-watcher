@@ -1,0 +1,47 @@
+.movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.video {
+    height: 80vh;
+}
+
+.movie-url-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: .5rem;
+}
+
+.movie-url, .movie-btn {
+    padding: .7rem;
+    border-radius: .3rem;
+    outline: none;
+}
+
+.movie-url {
+    margin:  0 .3rem 0 0;
+    flex: 2;
+    border: 1px solid black;
+}
+
+.movie-btn {
+    border: none;
+    margin:  0 0 0 .3rem;
+    flex: .5;
+    cursor: pointer;
+    background: rgb(58, 9, 58);
+    color: white;
+}
+
+.movie-btn:hover {
+    border: 1px solid rgb(58, 9, 58);
+    background: white;
+    color: rgb(58, 9, 58);
+}
+
+.room-code:hover {
+    cursor: pointer;
+}
