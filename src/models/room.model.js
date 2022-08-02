@@ -8,7 +8,10 @@ const roomSchema = new Schema({
         type: String,
         unique: true
     },
-    owner_id: String
+    created_at: {
+        type: Date,
+        default: Date.now()
+    }
 });
 
 const roomModel = mongoose.model('Room', roomSchema);

@@ -2,9 +2,10 @@ const movieForm = document.querySelector('.movie-url-form');
 const video = document.querySelector('.video');
 
 const socket = io({ forceNew: true });
-const socketRoom = document.URL.split('room/')[1];
+const socketRoomId = document.URL.split('room/')[1];
 
-socket.emit('newUser', socketRoom);
+//Nuova client nella stanza
+socket.emit('new-connection-created', socketRoomId);
 
 movieForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -16,33 +17,37 @@ movieForm.addEventListener('submit', (event) => {
 });
 
 function setMovieUrl(url, toSend = true) {
+    console.log(url);
     video.src = url;
     video.load();
     
-    if(toSend) socket.emit('loadMovie', socketRoom, url);
+    if(toSend) socket.emit('load-movie', socketRoomId, url);
 }
 
 video.addEventListener('play', (event) => {
     event.preventDefault();
-    socket.emit('play', socketRoom);
+    socket.emit('play', socketRoomId);
 });
 
 video.addEventListener('pause', (event) => {
     event.preventDefault();
-    socket.emit('pause', socketRoom);
+    socket.emit('pause', socketRoomId);
 });
 
-//Socket connection
-socket.on('closeRoom', () => window.location = '/');
+//Socket connections
+socket.on('new-user-connected', () => console.log('New User Connected'));
+socket.on('user-disconnected', () => console.log('User Disconnected'));
 
-socket.on('setMovie', url => setMovieUrl(url, false));
+// socket.on('closeRoom', () => window.location = '/');
 
-socket.on('moviePlay', () => {
+socket.on('set-movie', url => setMovieUrl(url, false));
+
+socket.on('movie-play', () => {
     const promise = document.querySelector('.video').play();
     resolvePromise(promise);
 });
 
-socket.on('moviePause', () => {
+socket.on('movie-pause', () => {
     const promise = document.querySelector('.video').pause();
     resolvePromise(promise);
 });
