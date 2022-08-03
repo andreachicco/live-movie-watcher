@@ -10,7 +10,7 @@
     display: grid;
     align-items: center;
     max-height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 @media screen and (max-width: 600px) {

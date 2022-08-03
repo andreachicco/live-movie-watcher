@@ -2,18 +2,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .video {
-    height: 80vh;
+    width: 100%;
 }
 
 .movie-url-form {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin: .5rem;
+    margin-top: .5rem;
 }
 
 .movie-url, .movie-btn {
@@ -45,4 +45,19 @@
 
 .room-code:hover {
     cursor: pointer;
+}
+
+.history-container {
+    margin: .5rem 0;
+}
+
+.history-events {
+    list-style: none;
+}
+
+.event {
+    margin: .5rem 0;
+    border-radius: .5rem;
+    padding: 1rem;
+    border: 1px solid rgb(58, 9, 58);
 }

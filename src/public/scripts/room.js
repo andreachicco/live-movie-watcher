@@ -1,6 +1,7 @@
 const movieForm = document.querySelector('.movie-url-form');
 const video = document.querySelector('.video');
 
+
 const socket = io({ forceNew: true });
 const socketRoomId = document.URL.split('room/')[1];
 
@@ -34,11 +35,17 @@ video.addEventListener('pause', (event) => {
     socket.emit('pause', socketRoomId);
 });
 
-//Socket connections
-socket.on('new-user-connected', () => console.log('New User Connected'));
-socket.on('user-disconnected', () => console.log('User Disconnected'));
+function createNewHistoryEvent(event) {
+    const eventMessage = event.message;
+    
+    const historyEventList = document.querySelector('.history-events');
 
-// socket.on('closeRoom', () => window.location = '/');
+    historyEventList.innerHTML += `<li class="event">${eventMessage}</li>`
+}
+
+//Socket connections
+socket.on('new-user-connected', () => createNewHistoryEvent({ message: 'Nuovo utente connesso' }));
+socket.on('user-disconnected', () => createNewHistoryEvent({ message: 'Utente disconnesso' }));
 
 socket.on('set-movie', url => setMovieUrl(url, false));
 
