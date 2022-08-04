@@ -2,14 +2,25 @@
     <link rel="stylesheet" href="/styles/home.css" type="text/css"/>
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
 </head>
-<body class="container">
-    <nav class="nav">
-        <form action="/room" method="post" class="create-room-form">
-            <button type="submit" class="create-btn btn">Crea Stanza</button>
-        </form>
-        <form action="/room/join" method="post" class="join-room-form">
-            <input class="join-input" type="text" autocomplete="off" placeholder="Inserisci codice stanza" name="roomId"/>
-            <button class="join-btn btn" type="submit">Unisciti</button>
-        </form>
-    </nav>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo"><span>WE</span>MOVIE</h1>
+            
+            <nav>
+                <ul class="menu">
+                    <li><a href="/" class="sign-in"><i class="fa-solid fa-user"></i> Sign-In</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="room-section">
+
+            <h1 class="hero-title">Watch your <span>favourite</span> videos with your friends!</h1>
+
+            <form action="/room" method="post" class="create-room-form">
+                <button type="submit" class="create-btn btn">Crea Stanza <i class="fa-solid fa-film"></i></button>
+            </form>
+        </section>
+    </div>
 <%- include('./partials/footer'); -%>

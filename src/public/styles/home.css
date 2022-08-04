@@ -1,17 +1,79 @@
-.nav {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 10vh;
+}
+
+.logo {
+    font-size: var(--m-font-size);
+    color: white;
+    font-family: 'Nova Round', cursives;
+    align-self: center;
+    margin: 0;
+}
+
+.logo span {
+    color: var(--telemagenta);
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--xs-font-size);
+}
+
+.sign-in {
+    padding: 1rem 1.3rem;
+    border-radius: var(--l-border-radius);
+    background: var(--telemagenta);
+    color: white;
+}
+
+.sign-in:hover {
+    border: 1px solid var(--telemagenta);
+    background: transparent;
+    color: var(--telemagenta);
+}
+
+.room-section {
+    width: 100%;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.join-room-form, .create-room-form {
-    width: 75%;
-    display: flex;
-    flex-direction: column;
+.hero-title {
+    font-size: var(--m-font-size);
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    width: 60%;
 }
 
-.btn, .join-input {
+.hero-title span {
+    color: var(--telemagenta);
+}
+
+.create-btn{
+    width: 20rem;
+    height: 5rem;
+    border-radius: var(--l-border-radius);
+    color: var(--telemagenta);
+    border: 1px solid var(--telemagenta);
+}
+
+.create-btn:hover{
+    border-radius: var(--l-border-radius);
+    background: var(--telemagenta);
+    color: white;
+}
+
+/* .btn, .join-input {
     margin: .4rem;
     padding: .8rem;
     border: none;
@@ -24,7 +86,7 @@
 }
 
 .join-btn {
-    background: rgb(58, 9, 58);
+    background: var(--telemagenta);
     color: white;
     cursor: pointer;
 }
@@ -45,10 +107,29 @@
 .create-btn:hover {
     background: rgb(58, 9, 58);
     color: white;
-}
+} */
 
-@media screen and (max-width: 600px) {
-    .join-room-form, .create-room-form {
+@media screen and (max-width: 576px) {
+
+    .logo {
+        font-size: var(--s-font-size);
+    }
+
+    .menu {
+        font-size: var(--xxs-font-size);
+    }
+
+    .sign-in {
+        border-radius: var(--m-border-radius);
+    }
+
+    .hero-title {
+        font-size: var(--s-font-size);
         width: 100%;
+    }
+
+    .create-btn {
+        height: 4rem;
+        border-radius: var(--m-border-radius);
     }
 }

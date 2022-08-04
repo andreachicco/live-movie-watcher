@@ -1,19 +1,66 @@
+:root {
+    --telemagenta: #C9376E; 
+
+    --l-border-radius: .5rem;
+    --m-border-radius: .25rem;
+
+    --xl-font-size: 5rem;
+    --l-font-size: 4rem;
+    --m-font-size: 3rem;
+    --s-font-size: 2.5rem;
+    --xs-font-size: 1rem;
+    --xxs-font-size: .9rem;
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.container {
-    width: 85%;
-    margin: auto;
-    display: grid;
-    align-items: center;
-    max-height: 100vh;
-    overflow-x: hidden;
+body {
+    background: url('/assets/images/background.png') no-repeat center;
+    background-size: cover;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 600px) {
+.container {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+button {
+    outline: none;
+    border: none;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+footer {
+    width: 100%;
+    padding: .5rem 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: white;
+    text-align: center;
+}
+
+@media screen and (max-width: 576px) {
     .container {
         width: 95%;
     }
