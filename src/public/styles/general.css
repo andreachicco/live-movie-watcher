@@ -1,5 +1,6 @@
 :root {
-    --telemagenta: #C9376E; 
+    --second-color: #C9376E; 
+    --first-color: white;
 
     --l-border-radius: .5rem;
     --m-border-radius: .25rem;
@@ -32,13 +33,21 @@ body {
     align-items: center;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 10vh;
+}
+
 ul {
     list-style: none;
 }
 
 a, a:hover {
     text-decoration: none;
-    color: black;
+    color: var(--first-color);
 }
 
 button {
@@ -48,6 +57,18 @@ button {
 
 button, a {
     cursor: pointer;
+}
+
+.logo {
+    font-size: var(--m-font-size);
+    color: var(--first-color);
+    font-family: 'Nova Round', cursives;
+    align-self: center;
+    margin: 0;
+}
+
+.logo span {
+    color: var(--second-color);
 }
 
 footer {
@@ -65,5 +86,9 @@ footer {
 @media screen and (max-width: 576px) {
     .container {
         width: 95%;
+    }
+
+    .logo {
+        font-size: var(--s-font-size);
     }
 }
