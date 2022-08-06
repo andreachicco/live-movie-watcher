@@ -1,12 +1,30 @@
+.room-code {
+    color: var(--first-color);
+}
+
+.room-code:hover {
+    color: var(--second-color);
+    cursor: pointer;
+}
+
 .movie-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 100%; */
+    height: 80vh;
+    justify-content: center;
+    width: 100%;
 }
 
 .video {
+    height: 80%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.screen {
+    height: 100%;
 }
 
 .movie-url-form {
@@ -43,21 +61,35 @@
     color: rgb(58, 9, 58);
 }
 
-.room-code:hover {
-    cursor: pointer;
-}
-
 .history-container {
     margin: .5rem 0;
+    position: absolute;
+    top: 10vh;
+    right: 5%;
 }
 
 .history-events {
     list-style: none;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .event {
     margin: .5rem 0;
     border-radius: .5rem;
     padding: 1rem;
-    border: 1px solid rgb(58, 9, 58);
+    color: var(--first-color);
+    border: 1px solid var(--first-color);
+}
+
+@media screen and (max-width: 972px) {
+    
+    .video {
+        align-items: center;
+    }
+
+    .screen {
+        height: auto;
+        width: 100%;
+    }
 }
