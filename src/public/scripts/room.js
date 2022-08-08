@@ -9,10 +9,23 @@ const socketRoomId = document.URL.split('room/')[1];
 //Nuova client nella stanza
 socket.emit('new-connection-created', socketRoomId);
 
+const deviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return "tablet";
+    }
+    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+        return "mobile";
+    }
+    return "desktop";
+};
+
 inviteFriends.addEventListener('click', async (event) => {
     event.preventDefault();
 
-    if(!navigator.clipboard) {
+    const device = deviceType();
+
+    if(device === 'tablet' || device === 'mobile') {
         if(navigator.share) {
             try {
                 await navigator.share({
@@ -26,7 +39,11 @@ inviteFriends.addEventListener('click', async (event) => {
         else {
             alert('Funzionalità non disponibile');
         }
-    };
+        
+        return;
+    }
+    
+    if(!navigator.clipboard) alert('Funzionalità non disponibile');
 
     try {
         await navigator.clipboard.writeText(document.URL);
