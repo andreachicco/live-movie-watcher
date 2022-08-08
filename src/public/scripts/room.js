@@ -1,11 +1,39 @@
 const movieForm = document.querySelector('.movie-url-form');
 const video = document.querySelector('.screen');
 
+const inviteFriends = document.querySelector('.room-code');
+
 const socket = io({ forceNew: true });
 const socketRoomId = document.URL.split('room/')[1];
 
 //Nuova client nella stanza
 socket.emit('new-connection-created', socketRoomId);
+
+inviteFriends.addEventListener('click', async (event) => {
+    event.preventDefault();
+
+    if(!navigator.clipboard) {
+        if(navigator.share) {
+            try {
+                await navigator.share({
+                    title: "WeMovie",
+                    url: document.URL,
+                });
+            } catch (error) {
+                console.error(error);
+            }  
+        }
+        else {
+            alert('Funzionalità non disponibile');
+        }
+    };
+
+    try {
+        await navigator.clipboard.writeText(document.URL);
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 movieForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -17,7 +45,6 @@ movieForm.addEventListener('submit', (event) => {
 });
 
 function setMovieUrl(url, toSend = true) {
-    console.log(url);
     video.src = url;
     video.load();
     
