@@ -9,7 +9,7 @@ io.init = function initSocket(server) {
     const io = new Server(server);
 
     io.on('connection', (socket) => {
-        socket.on('new-connection-created', async (roomId) => {
+        socket.on('new-connection-created', async (roomId, username) => {
             socket.join(roomId)
 
             try {
@@ -17,7 +17,8 @@ io.init = function initSocket(server) {
                 
                 const newClient = new Client({ 
                     socket_id: socket.id,
-                    room_id: roomToJoin._id
+                    room_id: roomToJoin._id,
+                    username: username
                 });
     
                 await newClient.save();
@@ -26,7 +27,7 @@ io.init = function initSocket(server) {
             }
 
             //Tell other clients thath a user has connected
-            socket.broadcast.to(roomId).emit('new-user-connected');
+            socket.broadcast.to(roomId).emit('new-user-connected', username);
         });
 
         //Set movie url for all clients
@@ -43,6 +44,7 @@ io.init = function initSocket(server) {
                 const client = await Client.findOne({ socket_id: socketId });
             
                 const roomId = client.room_id.toString();
+                const username = client.username;
 
                 await client.remove();
 
@@ -51,7 +53,7 @@ io.init = function initSocket(server) {
                 const room = await Room.findById(roomId);
                 
                 if(remainingClients.length === 0) await room.remove(); 
-                else socket.broadcast.to(room.url_id).emit('user-disconnected');
+                else socket.broadcast.to(room.url_id).emit('user-disconnected', username);
 
             } catch (error) {
                 console.error(error);

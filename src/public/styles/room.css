@@ -1,3 +1,7 @@
+body {
+    pointer-events: none;
+}
+
 .room-code {
     color: var(--first-color);
 }
@@ -5,6 +9,45 @@
 .room-code:hover {
     color: var(--second-color);
     cursor: pointer;
+}
+
+.pop-up-container {
+    width: 100vw;
+    height: 100vh;
+    opacity: .9;
+    pointer-events: all;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pop-up {
+    border-radius: var(--l-border-radius);
+    width: 50%;
+    padding: 5rem;
+    background: var(--first-color);
+}
+
+.pop-up form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pop-up button, .pop-up input {
+    padding: 1rem 1.5rem;
+    margin: .5rem 0;
+    width: 100%;
+}
+
+.pop-up input {
+    border: 1px solid var(--second-color);
 }
 
 .movie-container {
@@ -46,19 +89,10 @@
     border: 1px solid black;
 }
 
-.movie-btn {
-    border: none;
+.set-url-btn {
     margin:  0 0 0 .3rem;
     flex: .5;
     cursor: pointer;
-    background: rgb(58, 9, 58);
-    color: white;
-}
-
-.movie-btn:hover {
-    border: 1px solid rgb(58, 9, 58);
-    background: white;
-    color: rgb(58, 9, 58);
 }
 
 .history-container {

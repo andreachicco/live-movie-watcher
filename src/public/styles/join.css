@@ -19,7 +19,6 @@
     margin: .3rem;
     padding: 1.5rem 1rem;
     font-size: var(--s-font-size);
-    border-radius: var(--l-border-radius);
 }
 
 .join-input {

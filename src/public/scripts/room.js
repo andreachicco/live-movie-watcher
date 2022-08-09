@@ -4,6 +4,18 @@ import {
     resolvePromise
 } from "./utils.js";
 
+const popupForm = document.querySelector('.pop-up > form');
+
+let username;
+popupForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    username = event.target[0].value;
+    socket.emit('new-connection-created', socketRoomId, username);
+
+    document.querySelector('body').style.pointerEvents = 'all';
+    document.querySelector('.pop-up-container').style.display = 'none';
+});
+
 const movieForm = document.querySelector('.movie-url-form');
 const video = document.querySelector('.screen');
 
@@ -13,7 +25,6 @@ const socket = io({ forceNew: true });
 const socketRoomId = document.URL.split('room/')[1];
 
 //Nuova client nella stanza
-socket.emit('new-connection-created', socketRoomId);
 
 inviteFriends.addEventListener('click', async () => {
     const device = deviceType();
@@ -71,8 +82,8 @@ video.addEventListener('play', () => socket.emit('play', socketRoomId));
 video.addEventListener('pause', () => socket.emit('pause', socketRoomId));
 
 //Socket connections
-socket.on('new-user-connected', () => createNewHistoryEvent({ message: 'Nuovo utente connesso' }));
-socket.on('user-disconnected', () => createNewHistoryEvent({ message: 'Utente disconnesso' }));
+socket.on('new-user-connected', (username) => createNewHistoryEvent({ message: `${username} si è unito alla stanza` }));
+socket.on('user-disconnected', (username) => createNewHistoryEvent({ message: `${username} si è disconnesso` }));
 
 socket.on('set-movie', url => setMovieUrl(url, false));
 

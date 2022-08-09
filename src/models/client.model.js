@@ -8,7 +8,8 @@ const clientSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Room'
     },
-    user_id: String
+    user_id: String,
+    username: String
 });
 
 const clientModel = mongoose.model('Client', clientSchema);

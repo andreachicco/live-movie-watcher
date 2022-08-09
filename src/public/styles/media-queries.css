@@ -2,6 +2,10 @@
     body .hero-title {
         width: 70%;
     }
+
+    body .pop-up {
+        width: 65%;
+    }
 }
 
 /* MEDIUM SIZE */
@@ -26,7 +30,7 @@
 
 @media (max-width: 768px) { 
 
-    body .bg-fcolor-btn, body .bg-scolor-btn, body .join-input {
+    body .bg-fcolor-btn, body .bg-scolor-btn, body input {
         border-radius: var(--m-border-radius);
     }
 
@@ -41,6 +45,10 @@
     body .join-input, body .join-btn {
         padding: 1rem .7rem;
         font-size: var(--xs-font-size);
+    }
+
+    body .pop-up {
+        width: 75%;
     }
 }
 
@@ -65,5 +73,16 @@
 
     body .video {
         height: 40vh;
+    }
+
+    body .pop-up {
+        background: transparent;
+        width: 95%;
+        margin: auto;
+        padding: 0;
+    }
+    
+    body .pop-up p {
+        color: var(--first-color);
     }
 }
