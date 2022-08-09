@@ -1,0 +1,27 @@
+.room-section, .join-room-form {
+    width: 100%;
+}
+
+.room-section {
+    height: 80vh;
+    display: grid;
+    align-items: center;
+}
+
+.join-room-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.join-input, .join-btn {
+    margin: .3rem;
+    padding: 1.5rem 1rem;
+    font-size: var(--s-font-size);
+    border-radius: var(--l-border-radius);
+}
+
+.join-input {
+    flex: 1;
+}

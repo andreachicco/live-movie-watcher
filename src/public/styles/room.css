@@ -80,22 +80,16 @@
     padding: 1rem;
     color: var(--first-color);
     border: 1px solid var(--first-color);
-}
-
-@media screen and (max-width: 576px) {
-    .video {
-        height: 40vh;
-    }
-}
+} 
 
 @media screen and (max-width: 972px) {
     
-    .video {
+    body .video {
         align-items: center;
 
     }
 
-    .screen {
+    body .screen {
         height: auto;
         width: 100%;
     }

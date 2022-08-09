@@ -1,0 +1,18 @@
+<%- include('./partials/header'); -%>
+    <link rel="stylesheet" href="/styles/join.css" type="text/css"/>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo"><a href="/"><span>WE</span>MOVIE</a></h1>
+        </header>
+
+        <section class="room-section">
+            <form action="/room/join" method="post" class="join-room-form">
+                <input class="join-input" type="text" autocomplete="off" required placeholder="Insert the room id" name="roomId"/>
+                <button type="submit" class="join-btn bg-fcolor-btn">Join Room <i class="fa-solid fa-film"></i></button>
+            </form>
+        </section>
+    </div>
+<%- include('./partials/footer'); -%>

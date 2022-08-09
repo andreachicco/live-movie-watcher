@@ -5,12 +5,15 @@
     --l-border-radius: .5rem;
     --m-border-radius: .25rem;
 
-    --xl-font-size: 5rem;
-    --l-font-size: 4rem;
-    --m-font-size: 3rem;
-    --s-font-size: 2.5rem;
+    --xxxl-font-size: 3rem;
+    --xxl-font-size: 2.7rem;
+    --xl-font-size: 2.4rem;
+    --l-font-size: 2.1rem;
+    --m-font-size: 1.8rem;
+    --s-font-size: 1.5rem;
     --xs-font-size: 1rem;
     --xxs-font-size: .9rem;
+    --xxs-font-size: .6rem;
 }
 
 * {
@@ -33,13 +36,6 @@ body {
     align-items: center;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    min-height: 10vh;
-}
 
 ul {
     list-style: none;
@@ -50,7 +46,7 @@ a, a:hover {
     color: var(--first-color);
 }
 
-button {
+button, input {
     outline: none;
     border: none;
 }
@@ -59,8 +55,19 @@ button, a {
     cursor: pointer;
 }
 
+
+/* HEADER STYLE */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 10vh;
+}
+
+/* LOGO STYLE */
 .logo {
-    font-size: var(--m-font-size);
+    font-size: var(--xxxl-font-size);
     color: var(--first-color);
     font-family: 'Nova Round', cursives;
     align-self: center;
@@ -71,6 +78,30 @@ button, a {
     color: var(--second-color);
 }
 
+.bg-fcolor-btn {
+    border-radius: var(--l-border-radius);
+    color: var(--telemagenta);
+    border: 1px solid var(--second-color);
+}
+
+.bg-fcolor-btn:hover{
+    background: var(--second-color);
+    color: var(--first-color);
+}
+
+.bg-scolor-btn {
+    border-radius: var(--l-border-radius);
+    background: var(--second-color);
+    color: var(--first-color);
+}
+
+.bg-scolor-btn:hover {
+    border: 1px solid var(--second-color);
+    background: transparent;
+    color: var(--second-color);
+}
+
+/* FOOTER STYLE */
 footer {
     display: grid;
     align-items: center;
@@ -79,16 +110,6 @@ footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    color: white;
+    color: var(--first-color);
     text-align: center;
-}
-
-@media screen and (max-width: 576px) {
-    .container {
-        width: 95%;
-    }
-
-    .logo {
-        font-size: var(--s-font-size);
-    }
 }

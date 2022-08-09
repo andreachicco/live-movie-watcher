@@ -5,17 +5,8 @@
     font-size: var(--xs-font-size);
 }
 
-.sign-in {
+.join-btn {
     padding: 1rem 1.3rem;
-    border-radius: var(--l-border-radius);
-    background: var(--second-color);
-    color: var(--first-color);
-}
-
-.sign-in:hover {
-    border: 1px solid var(--second-color);
-    background: transparent;
-    color: var(--second-color);
 }
 
 .room-section {
@@ -28,7 +19,7 @@
 }
 
 .hero-title {
-    font-size: var(--m-font-size);
+    font-size: var(--xxxl-font-size);
     text-transform: uppercase;
     color: var(--first-color);
     text-align: center;
@@ -42,69 +33,4 @@
 .create-btn{
     width: 20rem;
     height: 5rem;
-    border-radius: var(--l-border-radius);
-    color: var(--telemagenta);
-    border: 1px solid var(--second-color);
-}
-
-.create-btn:hover{
-    border-radius: var(--l-border-radius);
-    background: var(--second-color);
-    color: var(--first-color);
-}
-
-/* .btn, .join-input {
-    margin: .4rem;
-    padding: .8rem;
-    border: none;
-    outline: none;
-    border-radius: .3rem;
-}
-
-.join-input {
-    border: 1px solid rgb(58, 9, 58);
-}
-
-.join-btn {
-    background: var(--telemagenta);
-    color: white;
-    cursor: pointer;
-}
-
-.join-btn:hover {
-    border: 1px solid rgb(58, 9, 58);
-    background: white;
-    color: rgb(58, 9, 58);
-}
-
-.create-btn {
-    border: 1px solid rgb(58, 9, 58);
-    background: white;
-    color: rgb(58, 9, 58);
-    cursor: pointer;
-}
-
-.create-btn:hover {
-    background: rgb(58, 9, 58);
-    color: white;
-} */
-
-@media screen and (max-width: 576px) {
-    .menu {
-        font-size: var(--xxs-font-size);
-    }
-
-    .sign-in {
-        border-radius: var(--m-border-radius);
-    }
-
-    .hero-title {
-        font-size: var(--s-font-size);
-        width: 100%;
-    }
-
-    .create-btn {
-        height: 4rem;
-        border-radius: var(--m-border-radius);
-    }
 }

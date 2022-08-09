@@ -13,6 +13,10 @@ router.post('/', async (req, res) => {
     res.redirect(`/room/${newRoomId}`);
 });
 
+router.get('/join', (req, res) => {
+    res.render('join', { title: 'Join Room'});
+})
+
 router.post('/join', (req, res) => {
     const { roomId } = req.body;
     res.redirect(`/room/${roomId}`);

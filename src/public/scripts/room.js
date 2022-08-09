@@ -1,3 +1,9 @@
+import { 
+    deviceType,
+    createNewHistoryEvent,
+    resolvePromise
+} from "./utils.js";
+
 const movieForm = document.querySelector('.movie-url-form');
 const video = document.querySelector('.screen');
 
@@ -9,41 +15,34 @@ const socketRoomId = document.URL.split('room/')[1];
 //Nuova client nella stanza
 socket.emit('new-connection-created', socketRoomId);
 
-const deviceType = () => {
-    const ua = navigator.userAgent;
-    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-        return "tablet";
-    }
-    else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-        return "mobile";
-    }
-    return "desktop";
-};
-
-inviteFriends.addEventListener('click', async (event) => {
-    event.preventDefault();
-
+inviteFriends.addEventListener('click', async () => {
     const device = deviceType();
 
+    console.log(device)
+
     if(device === 'tablet' || device === 'mobile') {
-        if(navigator.share) {
-            try {
-                await navigator.share({
-                    title: "WeMovie",
-                    url: document.URL,
-                });
-            } catch (error) {
-                console.error(error);
-            }  
-        }
-        else {
+
+        if(!navigator.share) {
             alert('Funzionalità non disponibile');
+            return;
         }
+
+        try {
+            await navigator.share({
+                title: "WeMovie",
+                url: document.URL,
+            });
+        } catch (error) {
+            console.error(error);
+        }  
         
         return;
     }
     
-    if(!navigator.clipboard) alert('Funzionalità non disponibile');
+    if(!navigator.clipboard) {
+        alert('Funzionalità non disponibile'); 
+        return;
+    }
 
     try {
         await navigator.clipboard.writeText(document.URL);
@@ -68,32 +67,8 @@ function setMovieUrl(url, toSend = true) {
     if(toSend) socket.emit('load-movie', socketRoomId, url);
 }
 
-video.addEventListener('play', (event) => {
-    event.preventDefault();
-    socket.emit('play', socketRoomId);
-});
-
-video.addEventListener('pause', (event) => {
-    event.preventDefault();
-    socket.emit('pause', socketRoomId);
-});
-
-let timeOut;
-
-function createNewHistoryEvent(event) {
-    const eventMessage = event.message;
-    
-    const historyEventList = document.querySelector('.history-events');
-
-    historyEventList.innerHTML += `<li class="event">${eventMessage}</li>`;
-
-
-    if(timeOut) clearTimeout();
-
-    timeOut = setTimeout(() => {
-        historyEventList.innerHTML = '';
-    }, 2000);
-}
+video.addEventListener('play', () => socket.emit('play', socketRoomId));
+video.addEventListener('pause', () => socket.emit('pause', socketRoomId));
 
 //Socket connections
 socket.on('new-user-connected', () => createNewHistoryEvent({ message: 'Nuovo utente connesso' }));
@@ -110,11 +85,3 @@ socket.on('movie-pause', () => {
     const promise = document.querySelector('.screen').pause();
     resolvePromise(promise);
 });
-
-function resolvePromise(promise) {
-    if(promise !== undefined) {
-        promise
-            .then(_ => {})
-            .catch(err => console.error(err));
-    }
-}
