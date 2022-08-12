@@ -1,7 +1,8 @@
 import { 
     deviceType,
     createNewHistoryEvent,
-    resolvePromise
+    resolvePromise,
+    getPartecipants
 } from "./utils.js";
 
 const popupForm = document.querySelector('.pop-up > form');
@@ -14,6 +15,8 @@ popupForm.addEventListener('submit', (event) => {
 
     document.querySelector('body').style.pointerEvents = 'all';
     document.querySelector('.pop-up-container').style.display = 'none';
+
+    getPartecipants(socketRoomId);
 });
 
 const movieForm = document.querySelector('.movie-url-form');
@@ -82,8 +85,14 @@ video.addEventListener('play', () => socket.emit('play', socketRoomId));
 video.addEventListener('pause', () => socket.emit('pause', socketRoomId));
 
 //Socket connections
-socket.on('new-user-connected', (username) => createNewHistoryEvent({ message: `${username} si è unito alla stanza` }));
-socket.on('user-disconnected', (username) => createNewHistoryEvent({ message: `${username} si è disconnesso` }));
+socket.on('new-user-connected', (username) => {
+    createNewHistoryEvent({ message: `${username} si è unito alla stanza` })
+    getPartecipants(socketRoomId);
+});
+socket.on('user-disconnected', (username) => {
+    createNewHistoryEvent({ message: `${username} si è disconnesso` })
+    getPartecipants(socketRoomId);
+});
 
 socket.on('set-movie', url => setMovieUrl(url, false));
 

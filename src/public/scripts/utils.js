@@ -29,8 +29,21 @@ const resolvePromise = (promise) => {
     }
 }
 
+const getPartecipants = async (roomId) => {
+    const response = await fetch(`http://localhost:5050/room/${roomId}/clients`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+    const data = await response.json();
+    console.log(data);
+}
+
 export {
     deviceType,
     createNewHistoryEvent,
-    resolvePromise
+    resolvePromise,
+    getPartecipants
 }
