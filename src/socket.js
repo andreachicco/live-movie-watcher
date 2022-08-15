@@ -1,7 +1,6 @@
 const { Server } = require("socket.io");
 
-const Room = require('./models/room.model');
-const Client = require('./models/client.model');
+const { roomCollection, clientCollection } = require('./mongoose');
 
 const io = {}
 
@@ -13,17 +12,15 @@ io.init = function initSocket(server) {
             socket.join(roomId)
 
             try {
-                const roomToJoin = await Room.findOne({ url_id: roomId }); 
+                const roomToJoin = await roomCollection.findOneByUrlId(roomId); 
                 
-                const newClient = new Client({ 
+                await clientCollection.createClient({ 
                     socket_id: socket.id,
                     room_id: roomToJoin._id,
                     username: username
                 });
-    
-                await newClient.save();
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
 
             //Tell other clients thath a user has connected
@@ -41,18 +38,18 @@ io.init = function initSocket(server) {
             const socketId = socket.id;
             
             try {
-                const client = await Client.findOne({ socket_id: socketId });
+                const client = await clientCollection.findOneBySocketId(socketId);
             
                 const roomId = client.room_id.toString();
                 const username = client.username;
 
-                await client.remove();
+                await clientCollection.deleteClient(client);
 
-                const remainingClients = await Client.find({ room_id: roomId });
+                const remainingClients = await clientCollection.findByField('room_id', roomId);
                 
-                const room = await Room.findById(roomId);
+                const room = await roomCollection.findById(roomId);
                 
-                if(remainingClients.length === 0) await room.remove(); 
+                if(remainingClients.length === 0) await roomCollection.deleteRoom(room); 
                 else socket.broadcast.to(room.url_id).emit('user-disconnected', username);
 
             } catch (error) {

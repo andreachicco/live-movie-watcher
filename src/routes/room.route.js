@@ -5,11 +5,15 @@ const router = expres.Router();
 const Room = require('../models/room.model');
 const Client = require('../models/client.model');
 
+const { roomCollection } = require('../mongoose');
+
 router.post('/', async (req, res) => {
     const newRoomId = short.generate();
 
-    const room = new Room({ url_id: newRoomId });
-    await room.save();
+    // const room = new Room({ url_id: newRoomId });
+    // await room.save();
+
+    await roomCollection.createRoom(newRoomId);
 
     res.redirect(`/room/${newRoomId}`);
 });
@@ -27,7 +31,7 @@ router.get('/:id', async (req, res) => {
 
     const { id: roomId } = req.params;
 
-    const room = await Room.findOne({ url_id: roomId });
+    const room = await roomCollection.findOneByUrlId(roomId);
     
     if(!room) return res.redirect('/');
 

@@ -2,16 +2,12 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
+const { database } = require('./mongoose');
 
 if(process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const dbUri = process.env.DB_URI;
-
-mongoose.connect(dbUri, (err) => {
-  if(err) console.error(err);
-  else console.log('Database Connected');
-});
+database.connectDatabase(dbUri);
 
 const io = require('./socket');
 

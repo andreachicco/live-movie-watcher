@@ -30,7 +30,7 @@ const resolvePromise = (promise) => {
 }
 
 const getPartecipants = async (roomId) => {
-    const response = await fetch(`http://localhost:5050/room/${roomId}/clients`, {
+    const response = await fetch(`/room/${roomId}/clients`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
