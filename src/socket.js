@@ -23,8 +23,10 @@ io.init = function initSocket(server) {
                 console.error(error);
             }
 
+
+            socket.emit('connection-established');
             //Tell other clients thath a user has connected
-            socket.broadcast.to(roomId).emit('new-user-connected', username);
+            socket.to(roomId).emit('new-user-connected', username);
         });
 
         //Set movie url for all clients

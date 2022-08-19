@@ -51,6 +51,7 @@ router.get('/:id/clients', async (req, res) => {
         res.json(clientNames);
     } catch (error) {
         console.error(error);
+        res.sendStatus(400);
     }
 
 });

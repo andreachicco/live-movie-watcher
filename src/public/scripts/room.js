@@ -11,12 +11,14 @@ let username;
 popupForm.addEventListener('submit', (event) => {
     event.preventDefault();
     username = event.target[0].value;
-    socket.emit('new-connection-created', socketRoomId, username);
+    popupForm.reset();
 
     document.querySelector('body').style.pointerEvents = 'all';
     document.querySelector('.pop-up-container').style.display = 'none';
 
-    updateMemberList(socketRoomId);
+    document.querySelector('.lds-ring').style.opacity = '1';
+
+    socket.emit('new-connection-created', socketRoomId, username);
 });
 
 const movieForm = document.querySelector('.movie-url-form');
@@ -85,13 +87,18 @@ video.addEventListener('play', () => socket.emit('play', socketRoomId));
 video.addEventListener('pause', () => socket.emit('pause', socketRoomId));
 
 //Socket connections
-socket.on('new-user-connected', (username) => {
-    createNewHistoryEvent({ message: `${username} si è unito alla stanza` })
-    updateMemberList(socketRoomId);
+socket.on('connection-established', async () => {
+    await updateMemberList(socketRoomId)
+    document.querySelector('.lds-ring').style.display = 'none';
 });
-socket.on('user-disconnected', (username) => {
+
+socket.on('new-user-connected', async (username) => {
+    createNewHistoryEvent({ message: `${username} si è unito alla stanza` })
+    await updateMemberList(socketRoomId);
+});
+socket.on('user-disconnected', async (username) => {
     createNewHistoryEvent({ message: `${username} si è disconnesso` })
-    updateMemberList(socketRoomId);
+    await updateMemberList(socketRoomId);
 });
 
 socket.on('set-movie', url => setMovieUrl(url, false));
