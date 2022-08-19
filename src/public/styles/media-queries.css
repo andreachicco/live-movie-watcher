@@ -51,14 +51,8 @@
         width: 75%;
     }
 
-    body .screen-container {
-        grid-template-areas: 
-            "video video video video video"
-            "video video video video video"
-            "video video video video video"
-            "members members members members members"
-            "input input input input input"
-        ;
+    body .members {
+        align-items: center;
     }
 }
 
@@ -94,5 +88,13 @@
     
     body .pop-up p {
         color: var(--first-color);
+    }
+
+    body .username {
+        font-size: var(--xxs-font-size);
+    }
+
+    body .fa-user-tie {
+        font-size: var(--s-font-size);
     }
 }

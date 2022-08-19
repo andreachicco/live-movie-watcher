@@ -2,7 +2,7 @@ import {
     deviceType,
     createNewHistoryEvent,
     resolvePromise,
-    getPartecipants
+    updateMemberList
 } from "./utils.js";
 
 const popupForm = document.querySelector('.pop-up > form');
@@ -16,7 +16,7 @@ popupForm.addEventListener('submit', (event) => {
     document.querySelector('body').style.pointerEvents = 'all';
     document.querySelector('.pop-up-container').style.display = 'none';
 
-    getPartecipants(socketRoomId);
+    updateMemberList(socketRoomId);
 });
 
 const movieForm = document.querySelector('.movie-url-form');
@@ -87,11 +87,11 @@ video.addEventListener('pause', () => socket.emit('pause', socketRoomId));
 //Socket connections
 socket.on('new-user-connected', (username) => {
     createNewHistoryEvent({ message: `${username} si è unito alla stanza` })
-    getPartecipants(socketRoomId);
+    updateMemberList(socketRoomId);
 });
 socket.on('user-disconnected', (username) => {
     createNewHistoryEvent({ message: `${username} si è disconnesso` })
-    getPartecipants(socketRoomId);
+    updateMemberList(socketRoomId);
 });
 
 socket.on('set-movie', url => setMovieUrl(url, false));

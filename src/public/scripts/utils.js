@@ -38,12 +38,28 @@ const getPartecipants = async (roomId) => {
     });
 
     const data = await response.json();
-    console.log(data);
+    return data;
+}
+
+const updateMemberList = async (roomId) => {
+
+    const memberList = document.querySelector('.members');
+    const members = await getPartecipants(roomId);
+
+    memberList.innerHTML = '';
+
+    members.forEach(member => memberList.innerHTML += 
+        `<li class="member">
+            <i class="fa-solid fa-user-tie"></i>
+            <p class="username">${member}</p>
+        </li>`
+    );
 }
 
 export {
     deviceType,
     createNewHistoryEvent,
     resolvePromise,
-    getPartecipants
+    getPartecipants,
+    updateMemberList
 }
