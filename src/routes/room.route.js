@@ -2,10 +2,10 @@ const expres = require('express');
 const short = require('short-uuid');
 const router = expres.Router();
 
-const Room = require('../models/room.model');
-const Client = require('../models/client.model');
+// const Room = require('../models/room.model');
+// const Client = require('../models/client.model');
 
-const { roomCollection } = require('../mongoose');
+const { roomCollection, clientCollection } = require('../mongoose');
 
 router.post('/', async (req, res) => {
     const newRoomId = short.generate();
@@ -39,15 +39,20 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/:id/clients', async (req, res) => {
-
-    const { id: roomId } = req.params;
-
-    const room = await Room.findOne({ url_id: roomId });
-
-    const clients = await Client.find({ room_id: room._id });
-    const clientNames = clients.map(client => client.username);
     
-    res.json(clientNames);
+    const { id: roomId } = req.params;
+    
+    try {
+        const room = await roomCollection.findOneByUrlId(roomId);
+    
+        const clients = await clientCollection.findByField('room_id', room._id);
+        const clientNames = clients.map(client => client.username);
+        
+        res.json(clientNames);
+    } catch (error) {
+        console.error(error);
+    }
+
 });
 
 module.exports = router;
