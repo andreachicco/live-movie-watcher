@@ -50,6 +50,16 @@
     body .pop-up {
         width: 75%;
     }
+
+    body .screen-container {
+        grid-template-areas: 
+            "video video video video video"
+            "video video video video video"
+            "video video video video video"
+            "members members members members members"
+            "input input input input input"
+        ;
+    }
 }
 
 /* SMALL SIZE */
