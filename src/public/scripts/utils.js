@@ -1,3 +1,5 @@
+import { socket } from "./socket.js";
+
 const deviceType = () => {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -56,10 +58,20 @@ const updateMemberList = async (roomId) => {
     );
 }
 
+const setVideoUrl = (url, toSend = true) => {
+    const videoElement = document.querySelector('.screen');
+
+    videoElement.src = url;
+    videoElement.load();
+
+    if(toSend) socket.setVideoUrl(url);
+} 
+
 export {
     deviceType,
     createNewHistoryEvent,
     resolvePromise,
     getPartecipants,
-    updateMemberList
+    updateMemberList,
+    setVideoUrl
 }

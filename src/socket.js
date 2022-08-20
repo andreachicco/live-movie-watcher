@@ -1,6 +1,7 @@
 const { Server } = require("socket.io");
-
 const { roomCollection, clientCollection } = require('./mongoose');
+
+const parseData = (payload) => JSON.parse(payload);
 
 const io = {}
 
@@ -8,7 +9,11 @@ io.init = function initSocket(server) {
     const io = new Server(server);
 
     io.on('connection', (socket) => {
-        socket.on('new-connection-created', async (roomId, username) => {
+        socket.on('join-room', async (payload) => {
+
+            const jsonData = parseData(payload);
+            const { roomId, username } = jsonData;
+
             socket.join(roomId)
 
             try {
@@ -23,16 +28,23 @@ io.init = function initSocket(server) {
                 console.error(error);
             }
 
-
+            //Tell to the client that is connecting that the connection has been created
             socket.emit('connection-established');
-            //Tell other clients thath a user has connected
+
+            //Tell other clients that a user has connected
             socket.to(roomId).emit('new-user-connected', username);
         });
 
         //Set movie url for all clients
-        socket.on('load-movie', (room, url) => socket.broadcast.to(room).emit('set-movie', url));
-        socket.on('play', (room) => socket.broadcast.to(room).emit('movie-play'));
-        socket.on('pause', (room) => socket.broadcast.to(room).emit('movie-pause'));
+        socket.on('load-movie', (payload) => {
+            
+            const jsonData = parseData(payload);
+            const { roomId, videoUrl } = jsonData;
+            
+            socket.broadcast.to(roomId).emit('set-video', videoUrl)
+        });
+        socket.on('play', (room) => socket.broadcast.to(room).emit('play-video'));
+        socket.on('pause', (room) => socket.broadcast.to(room).emit('pause-video'));
     
         //Disconnessione utente
         socket.on("disconnect", async () => {
