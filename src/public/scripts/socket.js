@@ -20,6 +20,14 @@ class Socket {
         else return this.roomId;
     }
 
+    #setToken(token) {
+        this.token = token;
+    }
+
+    getToken() {
+        return this.token;
+    }
+
     joinRoom(username) {
         const payload = {
             roomId: this.getRoomId(),
@@ -47,7 +55,8 @@ class Socket {
     }
 
     #listenForEvents() {
-        this.socket.on('connection-established', async () => {
+        this.socket.on('connection-established', async (token) => {
+            this.#setToken(token);
             await updateMemberList(this.getRoomId());
             document.querySelector('.lds-ring').style.display = 'none';
         });

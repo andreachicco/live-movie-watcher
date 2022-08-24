@@ -44,6 +44,7 @@ class Client extends Database {
     async createClient(client) {
         const newClient = new this.Client(client);
         await newClient.save();
+        return newClient;
     }
 
     async deleteClient(client) {

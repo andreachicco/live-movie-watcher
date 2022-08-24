@@ -2,6 +2,7 @@ const expres = require('express');
 const short = require('short-uuid');
 const router = expres.Router();
 
+const { verifyToken } = require('../middlewares');
 const { roomCollection, clientCollection } = require('../mongoose');
 
 //Create new room
@@ -32,7 +33,7 @@ router.get('/:id', async (req, res) => {
     res.render('room', { title: `Room | ${roomId}`, roomId: roomId });
 });
 
-router.get('/:id/clients', async (req, res) => {
+router.get('/:id/clients', verifyToken, async (req, res) => {
     
     const { id: roomId } = req.params;
     

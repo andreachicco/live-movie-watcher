@@ -1,7 +1,9 @@
 const { Server } = require("socket.io");
+const jwt = require('jsonwebtoken');
 const { roomCollection, clientCollection } = require('./mongoose');
 
 const parseData = (payload) => JSON.parse(payload);
+const createToken = (payload) => jwt.sign(payload, process.env.TOKEN_SECRET);
 
 const io = {}
 
@@ -19,20 +21,22 @@ io.init = function initSocket(server) {
             try {
                 const roomToJoin = await roomCollection.findOneByUrlId(roomId); 
                 
-                await clientCollection.createClient({ 
+                const { socket_id } = await clientCollection.createClient({ 
                     socket_id: socket.id,
                     room_id: roomToJoin._id,
                     username: username
                 });
+
+                const token = createToken({ socket_id, room_id: roomToJoin.url_id, username });
+
+                //Tell to the client that is connecting that the connection has been created
+                socket.emit('connection-established', token);
+
+                //Tell other clients that a user has connected
+                socket.to(roomId).emit('new-user-connected', username);
             } catch (error) {
                 console.error(error);
             }
-
-            //Tell to the client that is connecting that the connection has been created
-            socket.emit('connection-established');
-
-            //Tell other clients that a user has connected
-            socket.to(roomId).emit('new-user-connected', username);
         });
 
         //Set movie url for all clients

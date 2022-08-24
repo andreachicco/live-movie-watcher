@@ -32,15 +32,20 @@ const resolvePromise = (promise) => {
 }
 
 const getPartecipants = async (roomId) => {
-    const response = await fetch(`/room/${roomId}/clients`, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json'
-        }
-    });
-
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(`/room/${roomId}/clients`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${socket.getToken()}`,
+                'Accept': 'application/json'
+            }
+        });
+    
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 const updateMemberList = async (roomId) => {
