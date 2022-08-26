@@ -72,11 +72,18 @@ const setVideoUrl = (url, toSend = true) => {
     if(toSend) socket.setVideoUrl(url);
 } 
 
+const playSound = (trackName) => {
+    const audio = new Audio(trackName);
+    audio.loop = false;
+    audio.play();
+}
+
 export {
     deviceType,
     createNewHistoryEvent,
     resolvePromise,
     getPartecipants,
     updateMemberList,
-    setVideoUrl
+    setVideoUrl,
+    playSound
 }

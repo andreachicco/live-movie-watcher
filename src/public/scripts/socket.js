@@ -2,7 +2,8 @@ import {
     updateMemberList,
     createNewHistoryEvent,
     resolvePromise,
-    setVideoUrl
+    setVideoUrl,
+    playSound
 } from "./utils.js";
 
 class Socket {
@@ -63,6 +64,7 @@ class Socket {
         
         this.socket.on('new-user-connected', async (username) => {
             createNewHistoryEvent({ message: `${username} si è unito alla stanza` })
+            playSound('/assets/sounds/water-drop.mp3');
             await updateMemberList(this.getRoomId());
         });
 
