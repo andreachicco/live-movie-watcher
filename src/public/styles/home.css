@@ -34,3 +34,7 @@
     width: 20rem;
     height: 5rem;
 }
+
+.create-btn, .join-btn {
+    text-transform: uppercase;
+}

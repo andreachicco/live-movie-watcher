@@ -139,6 +139,10 @@ body {
     cursor: pointer;
 }
 
+.movie-url, .set-url-btn {
+    text-transform: uppercase;
+}
+
 .history-container {
     margin: .5rem 0;
     position: absolute;
@@ -159,16 +163,3 @@ body {
     color: var(--second-color);
     border: 1px solid var(--second-color);
 } 
-
-/* @media screen and (max-width: 972px) {
-    
-    body .video {
-        align-items: center;
-
-    }
-
-    body .screen {
-        height: auto;
-        width: 100%;
-    }
-} */

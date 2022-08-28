@@ -17,8 +17,9 @@
 
 .join-input, .join-btn {
     margin: .3rem;
-    padding: 1.5rem 1rem;
-    font-size: var(--s-font-size);
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: var(--xs-font-size);
 }
 
 .join-input {
