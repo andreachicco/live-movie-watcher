@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/join', (req, res) => {
-    res.render('join', { title: 'Join Room'});
+    res.render('join', { title: 'WeMovie | Join'});
 })
 
 router.post('/join', (req, res) => {
@@ -28,9 +28,9 @@ router.get('/:id', async (req, res) => {
 
     const room = await roomCollection.findOneByUrlId(roomId);
     
-    if(!room) return res.statusCode(404).redirect('/');
+    if(!room) return res.status(404).redirect('/');
 
-    res.render('room', { title: `Room | ${roomId}`, roomId: roomId });
+    res.render('room', { title: 'WeMovie | Room' });
 });
 
 router.get('/:id/clients', verifyToken, async (req, res) => {

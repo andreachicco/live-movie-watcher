@@ -41,6 +41,12 @@ else {
   
   app.use('/', homeRoute);
   app.use('/room', roomRoute);
+
+  //Not found page
+  app.use((req, res) => {
+    //TODO: Create a Not Found page to load
+    res.status(404).send("Sorry can't find that!");
+  });
   
   const serverPort = process.env.PORT;
   
