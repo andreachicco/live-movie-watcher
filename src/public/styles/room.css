@@ -139,10 +139,6 @@ body {
     cursor: pointer;
 }
 
-.movie-url, .set-url-btn {
-    text-transform: uppercase;
-}
-
 .history-container {
     margin: .5rem 0;
     position: absolute;
