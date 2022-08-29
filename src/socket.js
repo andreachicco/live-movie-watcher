@@ -29,8 +29,12 @@ io.init = function initSocket(server) {
 
                 const token = createToken({ socket_id, room_id: roomToJoin.url_id, username });
 
+                const data = {
+                    token,
+                    currentVideo: roomToJoin.current_video
+                };
                 //Tell to the client that is connecting that the connection has been created
-                socket.emit('connection-established', token);
+                socket.emit('connection-established', JSON.stringify(data));
 
                 //Tell other clients that a user has connected
                 socket.to(roomId).emit('new-user-connected', username);
@@ -40,11 +44,14 @@ io.init = function initSocket(server) {
         });
 
         //Set movie url for all clients
-        socket.on('load-movie', (payload) => {
+        socket.on('load-movie', async (payload) => {
             
             const jsonData = parseData(payload);
-            const { roomId, videoUrl } = jsonData;
-            
+            const { roomId: urlId, videoUrl } = jsonData;
+
+            try { await roomCollection.setCurrentVideo(urlId, videoUrl); }
+            catch (error) { console.error(error) }
+
             socket.broadcast.to(roomId).emit('set-video', videoUrl)
         });
         socket.on('play', (room) => socket.broadcast.to(room).emit('play-video'));

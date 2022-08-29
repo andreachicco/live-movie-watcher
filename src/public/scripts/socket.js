@@ -56,8 +56,10 @@ class Socket {
     }
 
     #listenForEvents() {
-        this.socket.on('connection-established', async (token) => {
+        this.socket.on('connection-established', async (payload) => {
+            const { token, currentVideo } = JSON.parse(payload);
             this.#setToken(token);
+            setVideoUrl(currentVideo, false);
             await updateMemberList(this.getRoomId());
             document.querySelector('.lds-ring').style.display = 'none';
         });

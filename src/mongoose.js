@@ -24,6 +24,10 @@ class Room extends Database {
         await room.remove();
     }
 
+    async setCurrentVideo(urlId, videoUrl) {
+        await this.Room.updateOne({ url_id: urlId }, { current_video: videoUrl });
+    }
+
     async findById(roomId) {
         const room = await this.Room.findById(roomId);
         return room;

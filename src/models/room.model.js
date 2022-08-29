@@ -11,6 +11,10 @@ const roomSchema = new Schema({
     created_at: {
         type: Date,
         default: Date.now()
+    },
+    current_video: {
+        type: String,
+        default: '/assets/videos/default.mp4'
     }
 });
 
