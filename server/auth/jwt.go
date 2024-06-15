@@ -54,6 +54,11 @@ func GenerateJwt(payload any) (Jwt, error) {
 }
 
 func ValidateJwt(token Jwt) (bool, error) {
+
+	if token == "" {
+		return false, nil
+	}
+
 	jwt_components := strings.Split(string(token), ".")
 
 	header, err := base64.URLEncoding.DecodeString(jwt_components[0])
