@@ -7,6 +7,10 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"strings"
+	"wemovie/database"
+	"wemovie/models"
+
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type Jwt string
@@ -53,10 +57,10 @@ func GenerateJwt(payload any) (Jwt, error) {
 	return Jwt(jwt), nil
 }
 
-func ValidateJwt(token Jwt) (bool, error) {
+func ValidateJwt(token Jwt) (bool, *models.User, error) {
 
 	if token == "" {
-		return false, nil
+		return false, nil, nil
 	}
 
 	jwt_components := strings.Split(string(token), ".")
@@ -64,13 +68,27 @@ func ValidateJwt(token Jwt) (bool, error) {
 	header, err := base64.URLEncoding.DecodeString(jwt_components[0])
 
 	if err != nil {
-		return false, err
+		return false, nil, err
 	}
 
 	payload, err := base64.URLEncoding.DecodeString(jwt_components[1])
 
 	if err != nil {
-		return false, err
+		return false, nil, err
+	}
+
+	var jsonPayload models.JwtPayload
+	json.Unmarshal(payload, &jsonPayload)
+
+	client := database.Connect()
+	userColl := database.Collection(client, "user")
+
+	username := jsonPayload.Username
+	filter := bson.D{{Key: "_id", Value: username}}
+	user, err := database.FindOne[models.User](userColl, filter)
+
+	if err != nil {
+		return false, nil, err
 	}
 
 	signature := jwt_components[2]
@@ -78,8 +96,8 @@ func ValidateJwt(token Jwt) (bool, error) {
 	_, _, encoded_signature := EncodeJwt(header, payload)
 
 	if signature != encoded_signature {
-		return false, nil
+		return false, nil, nil
 	}
 
-	return true, nil
+	return true, &user, nil
 }
