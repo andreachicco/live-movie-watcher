@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import './Chat.css'
+import { WebSocketCtx } from '../App';
 
 export enum MessageCode {
     NEW_USER_JOINED,
@@ -70,22 +71,27 @@ interface IChatBoxProp extends IChatInputProp {
 
 function ChatInput({ addMessage }: IChatInputProp) {
 
+    const wsCtx = useContext(WebSocketCtx);
     const [message, setMessage] = useState("")
 
     function handleButtonClick(e: any) {
         e.preventDefault();
-
-        
         const newMessage = new Message(
             "",
             message,
             MessageType.SENT
         )
 
-        addMessage(newMessage)
+        if(wsCtx) {
+            wsCtx.send(JSON.stringify({
+                code: MessageCode.MESSAGE_SENT,
+                data: message
+            }))
+            
+            addMessage(newMessage)
+            setMessage("")
+        }
 
-        console.log(message)
-        setMessage("")
     }
 
     return (
