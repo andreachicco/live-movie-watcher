@@ -11,13 +11,8 @@ export enum MessageCode {
 export enum MessageType {
     SENT,
     RECEIVED,
-    // USER_JOINED,
-    // USER_LEFT
-}
-
-interface ISocketMessage<T> {
-    code: MessageCode,
-    data: T
+    USER_JOINED,
+    USER_LEFT
 }
 
 interface IMessageProp {
@@ -53,10 +48,28 @@ function RecvMessage({ message }: IMessageProp) {
     )
 }
 
+function UserJoinMessage({ message }: IMessageProp) {
+    return (
+        <div className="message user-state-message user-join-message">
+            <p className='username'>{message.from} joined</p>
+        </div>
+    )
+}
+
+function UserLeftMessage({ message }: IMessageProp) {
+    return (
+        <div className="message user-state-message user-left-message">
+            <p className='username'>{message.from} left</p>
+        </div>
+    )
+}
+
 function MessageComponent({ message }: IMessageProp) {
     switch(message.type) {
         case MessageType.SENT: return SentMessage({ message });
         case MessageType.RECEIVED: return RecvMessage({ message });
+        case MessageType.USER_JOINED: return UserJoinMessage({ message });
+        case MessageType.USER_LEFT: return UserLeftMessage({ message });
     }
 }
 
@@ -87,7 +100,7 @@ function ChatInput({ addMessage }: IChatInputProp) {
                 code: MessageCode.MESSAGE_SENT,
                 data: message
             }))
-            
+
             addMessage(newMessage)
             setMessage("")
         }

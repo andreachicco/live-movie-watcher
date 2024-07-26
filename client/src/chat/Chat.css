@@ -62,3 +62,18 @@
     border-top-left-radius: 0;
     align-self: flex-start;
 }
+
+.user-state-message {
+    text-align: center;
+    padding: .15rem;
+    width: 15rem;
+    align-self: center;
+}
+
+.user-join-message {
+    background: rgb(0, 70, 0);
+}
+
+.user-left-message {
+    background: rgb(70, 0, 0);
+}

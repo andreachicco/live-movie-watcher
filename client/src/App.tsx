@@ -31,8 +31,18 @@ function App() {
         const parsed = JSON.parse(e.data);
         const code = parsed.code;
         
-        if(code === MessageCode.NEW_USER_JOINED) { console.log(`${parsed.data} joined the room`) }
-        if(code === MessageCode.USER_LEFT) { console.log(`${parsed.data} left the room`) }
+        if(code === MessageCode.NEW_USER_JOINED) { 
+          console.log(`${parsed.data} joined the room`) 
+          
+          const joinMessage = new Message(parsed.data, "", MessageType.USER_JOINED);
+          addMessage(joinMessage);
+        }
+        if(code === MessageCode.USER_LEFT) { 
+          console.log(`${parsed.data} left the room`) 
+          
+          const leaveMessage = new Message(parsed.data, "", MessageType.USER_LEFT);
+          addMessage(leaveMessage);
+        }
         
         if(code === MessageCode.MESSAGE_SENT) {
           const newMessage = new Message(parsed.data.username, parsed.data.text, MessageType.RECEIVED);
